@@ -2,6 +2,7 @@
 
 namespace Src\Domain\Locations\Entities;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
 use Src\Domain\Locations\Entities\Traits\Relations\LocationRelations;
 use Src\Domain\Locations\Entities\Traits\CustomAttributes\LocationAttributes;
@@ -9,7 +10,7 @@ use Src\Domain\Locations\Repositories\Contracts\LocationRepository;
 
 class Location extends Model
 {
-    use LocationRelations, LocationAttributes;
+    use LocationRelations, LocationAttributes, SoftDeletes;
 
     /**
      * define belongsTo relations.
@@ -38,7 +39,7 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'address'
     ];
 
     /**

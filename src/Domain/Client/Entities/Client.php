@@ -2,6 +2,8 @@
 
 namespace Src\Domain\Client\Entities;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
 use Src\Domain\Client\Entities\Traits\Relations\ClientRelations;
 use Src\Domain\Client\Entities\Traits\CustomAttributes\ClientAttributes;
@@ -9,7 +11,7 @@ use Src\Domain\Client\Repositories\Contracts\ClientRepository;
 
 class Client extends Model
 {
-    use ClientRelations, ClientAttributes;
+    use ClientRelations, ClientAttributes, SoftDeletes, HasFactory;
 
     /**
      * define belongsTo relations.
@@ -38,7 +40,9 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'email',
+        'password'
     ];
 
     /**

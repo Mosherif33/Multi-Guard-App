@@ -2,6 +2,8 @@
 
 namespace Src\Domain\Categories\Entities;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
 use Src\Domain\Categories\Entities\Traits\Relations\CategoriesRelations;
 use Src\Domain\Categories\Entities\Traits\CustomAttributes\CategoriesAttributes;
@@ -9,7 +11,7 @@ use Src\Domain\Categories\Repositories\Contracts\CategoriesRepository;
 
 class Categories extends Model
 {
-    use CategoriesRelations, CategoriesAttributes;
+    use CategoriesRelations, CategoriesAttributes, HasFactory, SoftDeletes;
 
     /**
      * define belongsTo relations.
@@ -38,7 +40,9 @@ class Categories extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'type',
+        'number'
     ];
 
     /**

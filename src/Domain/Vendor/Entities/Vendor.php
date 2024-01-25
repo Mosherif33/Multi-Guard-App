@@ -2,6 +2,7 @@
 
 namespace Src\Domain\Vendor\Entities;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
 use Src\Domain\Vendor\Entities\Traits\Relations\VendorRelations;
 use Src\Domain\Vendor\Entities\Traits\CustomAttributes\VendorAttributes;
@@ -9,7 +10,7 @@ use Src\Domain\Vendor\Repositories\Contracts\VendorRepository;
 
 class Vendor extends Model
 {
-    use VendorRelations, VendorAttributes;
+    use VendorRelations, VendorAttributes, SoftDeletes;
 
     /**
      * define belongsTo relations.
@@ -38,7 +39,10 @@ class Vendor extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'email',
+        'password',
+        'location_id'
     ];
 
     /**

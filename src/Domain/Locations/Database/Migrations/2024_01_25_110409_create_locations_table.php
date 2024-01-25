@@ -14,14 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            
+
 			$table->id();
-			$table->string('name');
+			$table->string('address');
 			$table->timestamps();
+			$table->softDeletes();
 
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
