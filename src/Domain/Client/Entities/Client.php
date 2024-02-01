@@ -4,12 +4,13 @@ namespace Src\Domain\Client\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
 use Src\Domain\Client\Entities\Traits\Relations\ClientRelations;
 use Src\Domain\Client\Entities\Traits\CustomAttributes\ClientAttributes;
 use Src\Domain\Client\Repositories\Contracts\ClientRepository;
 
-class Client extends Model
+class Client extends Authenticatable
 {
     use ClientRelations, ClientAttributes, SoftDeletes, HasFactory;
 

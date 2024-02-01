@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('location_id')->nullable()->constrained('locations')->nullOnDelete();
+            // $table->foreignId('locations_id')->nullable()->constrained('locations')->nullOnDelete();
 			$table->timestamps();
 			$table->softDeletes();
 

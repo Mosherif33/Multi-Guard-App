@@ -24,8 +24,11 @@ class VendorStoreFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'        => ['required', 'string', 'max:255'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:vendors'],
+            'password' => ['required', 'string', 'max:255'],
         ];
+
         return $rules;
     }
 
@@ -37,7 +40,9 @@ class VendorStoreFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'        =>  __('main.name'),
+            'name'     => __('main.name'),
+            'email'    => __('main.email'),
+            'password' => __('main.password'),
         ];
     }
 }

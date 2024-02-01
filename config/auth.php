@@ -46,6 +46,27 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendors',
+            // 'hash' => false,
+        ],
+        'vendor-api' => [
+            'driver' => 'passport',
+            'provider' => 'vendors',
+            // 'hash' => false,
+        ],
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+            // 'hash' => false,
+        ],
+        'client-api' => [
+            'driver' => 'passport',
+            'provider' => 'clients',
+            // 'hash' => false,
+        ],
     ],
 
     /*
@@ -70,6 +91,15 @@ return [
             'driver' => 'eloquent',
             'model' => \Src\Domain\User\Entities\User::class,
         ],
+
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => \Src\Domain\Vendor\Entities\Vendor::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => \Src\Domain\Client\Entities\Client::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

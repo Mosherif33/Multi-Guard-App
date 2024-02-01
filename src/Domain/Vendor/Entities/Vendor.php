@@ -42,7 +42,7 @@ class Vendor extends Model
         'name',
         'email',
         'password',
-        'location_id'
+        // 'location_id'
     ];
 
     /**
