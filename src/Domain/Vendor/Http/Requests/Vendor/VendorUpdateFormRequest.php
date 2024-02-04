@@ -1,9 +1,11 @@
 <?php
 
 namespace Src\Domain\Vendor\Http\Requests\Vendor;
-use Src\Domain\Vendor\Http\Requests\Vendor\VendorStoreFormRequest;
+use Illuminate\Validation\Rule;
+use Src\Infrastructure\Http\AbstractRequests\BaseRequest as FormRequest;
 
-class VendorUpdateFormRequest extends VendorStoreFormRequest
+
+class VendorUpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the vendor is authorized to make this request.
@@ -23,10 +25,12 @@ class VendorUpdateFormRequest extends VendorStoreFormRequest
     public function rules()
     {
         $rules = [
-        // 'email'    => ['required','unique:vendors,name,'.$this->route()->parameter('vendor').',id'],
+            'name'        => ['sometimes', 'string', 'max:255',Rule::unique('vendors','name')->whereNull('deleted_at')->ignore($this->vendor)],
+            'email'       => ['sometimes','email',Rule::unique('vendors','email')->whereNull('deleted_at')->ignore($this->vendor)],
+            'password'    => ['nullable', 'confirmed', 'min:8'],
+            'description' => ['sometimes', 'string', 'max:255'],
         ];
-
-        return array_merge(parent::rules(), $rules);
+        return $rules;
     }
 
     /**

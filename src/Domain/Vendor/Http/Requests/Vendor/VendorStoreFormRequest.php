@@ -2,6 +2,8 @@
 
 namespace Src\Domain\Vendor\Http\Requests\Vendor;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Src\Infrastructure\Http\AbstractRequests\BaseRequest as FormRequest;
 
 class VendorStoreFormRequest extends FormRequest
@@ -24,11 +26,11 @@ class VendorStoreFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:vendors'],
-            'password' => ['required', 'string', 'max:255'],
+            'name'        => ['required', 'string', 'max:255',Rule::unique('vendors','name')->whereNull('deleted_at')],
+            'description' => ['required','string'],
+            'email'       => ['required','email',Rule::unique('vendors','email')->whereNull('deleted_at')],
+            'password'    => ['required','confirmed','min:8'],
         ];
-
         return $rules;
     }
 
@@ -40,9 +42,17 @@ class VendorStoreFormRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name'     => __('main.name'),
-            'email'    => __('main.email'),
-            'password' => __('main.password'),
+            'name'         =>  __('main.name'),
+            'description'  =>  __('main.description'),
         ];
+    }
+
+    public function validated($key = null,$default = null)
+    {
+        $validatedAttributes = parent::validated();
+        if (array_key_exists('password', $validatedAttributes)) {
+            $validatedAttributes['password'] = Hash::make($validatedAttributes['password']);
+        }
+        return $validatedAttributes;
     }
 }

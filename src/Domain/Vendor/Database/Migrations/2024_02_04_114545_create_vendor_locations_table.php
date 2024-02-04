@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('vendor_locations', function (Blueprint $table) {
 
 			$table->id();
-			$table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken()->nullable();
-            $table->string('description')->nullable();
+            $table->foreignId('location_id')->nullable()->constrained('locations')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->timestamps();
-			$table->softDeletes();
+
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('vendor_locations');
     }
 };

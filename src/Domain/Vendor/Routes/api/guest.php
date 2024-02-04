@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => 'guest:api'], function () {
+    Route::post('/vendor-login',"SAC\LoginController");
     ###CRUD_PLACEHOLDER###
 });

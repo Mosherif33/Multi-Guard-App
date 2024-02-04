@@ -2,17 +2,14 @@
 
 namespace Src\Domain\Vendor\Entities;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Passport\HasApiTokens;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
-use Src\Domain\Vendor\Entities\Traits\Relations\VendorRelations;
-use Src\Domain\Vendor\Entities\Traits\CustomAttributes\VendorAttributes;
-use Src\Domain\Vendor\Repositories\Contracts\VendorRepository;
+use Src\Domain\Vendor\Entities\Traits\Relations\VendorCategoryRelations;
+use Src\Domain\Vendor\Entities\Traits\CustomAttributes\VendorCategoryAttributes;
+use Src\Domain\Vendor\Repositories\Contracts\VendorCategoryRepository;
 
-class Vendor extends Authenticatable
+class VendorCategory extends Model
 {
-    use VendorRelations, VendorAttributes, SoftDeletes, HasApiTokens;
+    use VendorCategoryRelations, VendorCategoryAttributes;
 
     /**
      * define belongsTo relations.
@@ -41,10 +38,7 @@ class Vendor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'description'
+        'name'
     ];
 
     /**
@@ -52,12 +46,12 @@ class Vendor extends Authenticatable
      *
      * @var array
      */
-    protected $table = "vendors";
+    protected $table = "vendor_categories";
 
     /**
      * Holds Repository Related to current Model.
      *
      * @var array
      */
-    protected $routeRepoBinding = VendorRepository::class;
+    // protected $routeRepoBinding = VendorCategoryRepository::class;
 }

@@ -5,6 +5,8 @@ namespace Src\Domain\Vendor\Http\Controllers\SAC;
 use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 use Src\Domain\Vendor\Repositories\Contracts\VendorRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use theaddresstech\DDD\Traits\Responder;
 use Src\Domain\Vendor\Http\Resources\Vendor\VendorResourceCollection;
 use Src\Domain\Vendor\Http\Resources\Vendor\VendorResource;
@@ -55,16 +57,23 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $index = $this->vendorRepository->spatie()->paginate();
+        try {
+            if (!auth('vendor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                return response()->json(['message' => 'email or password incorrect!',], 401);
+            }
+            $vendor = \auth('vendor')->user();
 
-        $this->setData('title', __('main.show-all') . ' ' . __('main.login'));
+            $this->setData('data', $vendor);
 
-        $this->setData('alias', $this->domainAlias);
-
-        $this->setData('data', $index);
-
-        $this->useCollection(VendorResourceCollection::class,'data');
-
+            $this->useCollection(VendorResource::class, 'data');
+            if ($request->wantsJson()) {
+                $this->setData('meta', [
+                    'token' => $vendor->createToken('vendor token', ['vendor'])->accessToken,
+                ]);
+            }
+        } catch (\Exception $exception) {
+            $this->setApiResponse(fn () => response(['message' => $exception->getMessage()], Response::HTTP_CONFLICT));
+        }
         return $this->response();
     }
 }

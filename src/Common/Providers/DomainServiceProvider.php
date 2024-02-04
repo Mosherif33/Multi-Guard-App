@@ -72,6 +72,7 @@ class DomainServiceProvider extends ServiceProvider
         HelperServiceProvider::class,
         EventServiceProvider::class,
         PolicyServiceProvider::class,
+        AuthServiceProvider::class,
     ];
 
     /**

@@ -2,17 +2,14 @@
 
 namespace Src\Domain\Vendor\Entities;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Passport\HasApiTokens;
 use Src\Infrastructure\AbstractModels\BaseModel as Model;
-use Src\Domain\Vendor\Entities\Traits\Relations\VendorRelations;
-use Src\Domain\Vendor\Entities\Traits\CustomAttributes\VendorAttributes;
-use Src\Domain\Vendor\Repositories\Contracts\VendorRepository;
+use Src\Domain\Vendor\Entities\Traits\Relations\VendorLocationRelations;
+use Src\Domain\Vendor\Entities\Traits\CustomAttributes\VendorLocationAttributes;
+use Src\Domain\Vendor\Repositories\Contracts\VendorLocationRepository;
 
-class Vendor extends Authenticatable
+class VendorLocation extends Model
 {
-    use VendorRelations, VendorAttributes, SoftDeletes, HasApiTokens;
+    use VendorLocationRelations, VendorLocationAttributes;
 
     /**
      * define belongsTo relations.
@@ -41,10 +38,7 @@ class Vendor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'description'
+        'name'
     ];
 
     /**
@@ -52,12 +46,12 @@ class Vendor extends Authenticatable
      *
      * @var array
      */
-    protected $table = "vendors";
+    protected $table = "vendor_locations";
 
     /**
      * Holds Repository Related to current Model.
      *
      * @var array
      */
-    protected $routeRepoBinding = VendorRepository::class;
+    protected $routeRepoBinding = VendorLocationRepository::class;
 }
